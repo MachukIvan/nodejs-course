@@ -1,21 +1,13 @@
-const path = require("path");
+const path = require('path');
 
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
 
-const rootDir = require("./utils/path");
+const mainRoutes = require('./routes/index')
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false}));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/users", (req, res, next) => {
-  res.sendFile(path.join(rootDir, "views", "2.html"));
-});
-
-app.use("/", (req, res, next) => {
-  res.sendFile(path.join(rootDir, "views", "1.html"));
-});
+app.use(mainRoutes);
 
 app.listen(5000);
